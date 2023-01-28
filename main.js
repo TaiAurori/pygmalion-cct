@@ -5,28 +5,40 @@ function grab(id) {
 }
 
 function pageLoaded() {
-    addItem()
+    addTraitItem()
+    addChatItem()
     updateOutput()
     document.getElementById("max-tokens").innerText = maxTokens
 }
 
 function makeIntoWpp() {
     let name = grab("name")
-    let species = grab("species")
+    
     let traits = []
-    Array.from(document.getElementById("character-traits").children).forEach(child => {
-        traits.push([child.children[1].value, child.children[2].value])
+    let traitsElement = document.getElementById("character-traits")
+
+    let description = grab("description")
+    if (description) traits.unshift(["Description", description.split("\n")])
+    
+    Array.from(traitsElement.children).forEach(child => {
+        traits.push([
+            child.children[1].value, 
+            child.children[2].value.split(
+                child.className.includes("long") ? "\n" : ","
+            )
+        ])
     })
     
-    let out = `[${species}("${name}")\n{\n`
+    let out = `[character("${name}")\n{\n`
+    
     for (trait of traits) {
+        if (trait[0] == "" && trait[1] == "") continue
         let stringVal = `${trait[0]}(`
-        let splitVal = trait[1].split(",")
-        for (value in splitVal) {
+        for (value in trait[1]) {
             if (value == 0) {
-                stringVal += `"${splitVal[value].trim()}"`
+                stringVal += `"${trait[1][value].trim()}"`
             } else {
-                stringVal += ` + "${splitVal[value].trim()}"`
+                stringVal += ` + "${trait[1][value].trim()}"`
             }
         }
         stringVal += ")\n"
@@ -54,19 +66,46 @@ function updateOutput() {
     }
 }
 
-function addItem() {
+function addTraitItem(key, long = false) {
     let traits = document.getElementById("character-traits")
     let trait = document.createElement("div")
     trait.className = "trait"
+    if (long) trait.className += " long"
     trait.innerHTML = `
+        <button 
+            class="delete-button" 
+            onclick="this.parentElement.remove(); updateOutput()"
+        >X</button>
+        <input class="first" oninput="updateOutput()" placeholder="Appearance">
+        ${long ?
+            '<textarea class="second" oninput="updateOutput()" placeholder="Blue shirt&#10;Long red hair"></textarea>'
+            :
+            '<input class="second" oninput="updateOutput()" placeholder="Blue shirt, Long red hair">'
+        }
+    `
+    if (key) trait.children[1].value = key
+    traits.appendChild(trait)
+    updateOutput()
+}
+
+function addChatItem(long = false) {
+    let msgs = document.getElementById("character-chats")
+    let msg = document.createElement("div")
+    msg.className = "msg"
+    if (long) msg.className += " long"
+    msg.innerHTML = `
         <button 
             class="delete-button" 
             onclick="this.parentElement.remove()"
         >X</button>
-        <input class="first" oninput="updateOutput()" placeholder="Appearance">
-        <input class="second" oninput="updateOutput()" placeholder="Blue shirt, Long red hair">
+        ${long ?
+            '<textarea placeholder="Person: Hello!"></textarea>'
+            :
+            '<input placeholder="Person: Hello!">'
+        }
     `
-    traits.appendChild(trait)
+    msgs.appendChild(msg)
+    updateOutput()
 }
 
 
@@ -99,5 +138,23 @@ function exportOogabooga() {
 }
 
 function exportGradio() {
+    let name = grab("name")
+    let greeting = grab("greeting")
+    let scenario = grab("scenario")
+    let dialogue = []
+
+    Array.from(document.getElementById("character-chats").children).forEach(child => {
+        dialogue.push(
+            child.children[1].value
+        )
+    })
     
+    let result = JSON.stringify({
+        char_name: name,
+        char_persona: makeIntoWpp(),
+        char_greeting: greeting,
+        world_scenario: scenario,
+        example_dialogue: dialogue.join("\n")
+    })
+    downloadString(result, `${name}.json`)
 }

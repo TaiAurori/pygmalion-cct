@@ -63,18 +63,29 @@ textarea {
 button {
     background: #041740;
 }
-input.first {
+
+.trait.long input.first {
+    width: calc(100% - 44px);
+    float: right;
+}
+.trait:not(.long) input.first {
     width: 35%;
     float: left;
 }
-input.second {
+.trait input.second {
     width: 55%;
     float: right;
+}
+.trait textarea.second {}
+
+.msg input, .msg textarea {
+    width: calc(100% - 44px);
 }
 button.delete-button {
     float: left;
     margin-right: 8px;
 }
+
 ::placeholder {
     color: var(--accent-color-reduced);
 }
