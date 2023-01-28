@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="style.css">
+        <title>Pygmalion Character Creation Toolkit</title>
+        </link>
+        <script src="bpe.js"></script>
+        <script src="vocab.js"></script>
+        <script src="tokenizer.js"></script>
+        <script src="main.js"></script>
+    </head>
+    <body onload="pageLoaded()">
+        <div id="left">
+            Welcome to the Pygmalion Character Creation Toolkit.
+            <br><br>
+            This page will allow you to write up a character and
+            export it for every supported platform in one go!
+            <div class="property-editor">
+                <span class="label">Name</span>
+                <input 
+                    id="character-name" 
+                    placeholder="What name does your character go by?"
+                    oninput = "updateOutput()"
+                >
+            </div>
+            <div class="property-editor">
+                <span class="label">Species</span>
+                <input 
+                    id="character-species" 
+                    placeholder="What species is your character?"
+                    oninput = "updateOutput()"
+                >
+            </div>
+            <div class="property-editor">
+                <span class="label">Greeting</span>
+                <input 
+                    id="character-greeting" 
+                    placeholder="What should your character say first?"
+                >
+            </div>
+            <div class="property-editor">
+                <span class="label">Scenario</span>
+                <input 
+                    id="character-scenario" 
+                    placeholder="What place are we in? What will happen?"
+                >
+            </div>
+            <!-- <div class="property-editor"> -->
+            <!--     <span class="label">Example Chats</span> -->
+            <!--     <div style="margin-bottom: 8px;"> -->
+            <!--         See  -->
+            <!--         <a href="https://rentry.org/pygtips#character-creation-tips"> -->
+            <!--             this document -->
+            <!--         </a>  -->
+            <!--         for an explanation of Example Chats and other character creation tips. -->
+            <!--     </div> -->
+            <!--     <textarea  -->
+            <!--         id="character-chats"  -->
+            <!--         placeholder="You: Hello, Bob!&#10;Bob: Hey!" -->
+            <!--         oninput = "updateOutput()" -->
+            <!--     ></textarea> -->
+            <!-- </div> -->
+            <div class="property-editor">
+                <span class="label">Character traits: (e.g appearance, preferences)</span>
+                <div style="margin-bottom: 8px;">Separate items by commas.</div>
+                <div id="character-traits">
+                    <!-- trait element's in JS -->
+                </div>
+                <button id="add-item" onclick="addItem()">Add an item</button>
+            </div>
+        </div>
+        <div id="right">
+            <div id="beta-badge">BETA</div>
+            <div id="token-counter">
+                <span id="used-tokens">?</span>
+                /
+                <span id="max-tokens">?</span> tokens
+            </div>
+            <div id="export-buttons">
+                <span>Export to... </span>
+                <button onclick="exportTavern()">TavernAI</button>
+                <button class="unimplemented" onclick="exportOogabooga()">Oogabooga</button>
+                <button class="unimplemented" onclick="exportGradio()">Gradio</button>
+                <!-- <button>All</button> -->
+            </div>
+            <div id="output">
+                
+            </div>
+        </div>
+    </body>
+</html>

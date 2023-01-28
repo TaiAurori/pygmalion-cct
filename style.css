@@ -1,0 +1,173 @@
+/* todo: dear god organize this */
+@font-face {
+    font-family: Montserrat;
+    src: url(res/font/MontserratRegular.ttf);
+}
+@font-face {
+    font-family: Montserrat;
+    src: url(res/font/MontserratSemibold.ttf);
+    font-weight: 600;
+}
+
+:root {
+    font-family: Montserrat;
+    color: white;
+    background: #051841;
+    font-size: 1.1em;
+    --accent-color: #01c1fd;
+    --accent-color-reduced: #01c1fdA0;
+    --border-radius: 12px;
+}
+
+body {
+    margin: 0;
+}
+
+#left {
+    box-sizing: border-box;
+    height: 100vh;
+    width: 560px;
+    float: left;
+    padding: 30px 20px;
+    background: #030b1b;
+    overflow-y: scroll;
+}
+
+#right {
+    box-sizing: border-box;
+    height: 100vh;
+    width: calc(100vw - 560px);
+    float: right;
+    /* padding: 30px 20px; */
+    overflow-y: scroll;
+}
+
+input, textarea, button {
+    box-sizing: border-box;
+    padding: 6px 12px;
+    border-radius: var(--border-radius);
+    border: none;
+    background: transparent;
+    color: inherit;
+    font-family: inherit;
+    font-size: inherit;
+}
+input, textarea {
+    width: 100%;
+    border: 1px solid var(--accent-color-reduced);
+}
+textarea {
+    resize: none;
+    height: 150px;
+}
+button {
+    background: #041740;
+}
+input.first {
+    width: 35%;
+    float: left;
+}
+input.second {
+    width: 55%;
+    float: right;
+}
+button.delete-button {
+    float: left;
+    margin-right: 8px;
+}
+::placeholder {
+    color: var(--accent-color-reduced);
+}
+
+.label {
+    font-weight: 600;
+    display: block;
+    margin: 10px 0px;
+}
+
+a[href] {
+    text-decoration: none;
+}
+
+.property-editor {
+    color: var(--accent-color);
+}
+
+.trait {
+    overflow: hidden;
+    margin-bottom: 10px;
+}
+
+#output {
+    font-family: monospace;
+    overflow: hidden;
+    overflow-wrap: break-word;
+    padding: 0px 20px;
+}
+
+#export-buttons {
+    color: var(--accent-color);
+    height: 60px;
+    padding: 0px 20px;
+    display: flex;
+    align-items: center;
+    overflow-x: scroll;
+    overflow-y: hidden;
+}
+#export-buttons button {
+    background: #072669;
+    margin-left: 10px;
+}
+
+.unimplemented {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+#beta-badge {
+    position: absolute;
+    top: 17px;
+    right: 20px;
+    padding: 5px 10px;
+    border-radius: 100000px;
+    background: #3483e2;
+    font-size: 0.8em;
+}
+
+#token-counter {
+    background: #030b1b;
+    border-radius: 100000px;
+    padding: 10px 20px;
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    transition: color 0.3s;
+}
+
+#token-counter.warning {
+    color: goldenrod;
+}
+
+#token-counter.overdraft {
+    color: crimson;
+    animation: overdraft 3s infinite;
+}
+
+@keyframes overdraft {
+    0%{ transform: scale(1) }
+    5%{ transform: scale(1.15) }
+    10%{ transform: scale(1) }
+    15%{ transform: scale(1.15) }
+    20%{ transform: scale(1) }
+    100%{ transform: scale(1) }
+}
+
+/* i will never understand why -webkit is a thing */
+@-webkit-keyframes overdraft {
+    0%{ transform: scale(1) }
+    5%{ transform: scale(1.15) }
+    10%{ transform: scale(1) }
+    15%{ transform: scale(1.15) }
+    20%{ transform: scale(1) }
+    100%{ transform: scale(1) }
+}
