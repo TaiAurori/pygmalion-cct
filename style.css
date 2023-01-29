@@ -21,6 +21,7 @@
 
 body {
     margin: 0;
+    overflow: hidden;
 }
 
 #left {
@@ -30,7 +31,7 @@ body {
     float: left;
     padding: 30px 20px;
     background: #030b1b;
-    overflow-y: scroll;
+    overflow-y: auto;
 }
 
 #right {
@@ -39,7 +40,7 @@ body {
     width: calc(100vw - 560px);
     float: right;
     /* padding: 30px 20px; */
-    overflow-y: scroll;
+    overflow: hidden;
 }
 
 input, textarea, button {
@@ -62,6 +63,28 @@ textarea {
 }
 button {
     background: #041740;
+}
+
+body.simple #chats-editor,
+body:not(.wpp-mode) #trait-editor,
+body.wpp-mode #description-editor  {
+    display: none;
+}
+
+.top-margin {
+    margin-top: 8px;
+}
+.bottom-margin {
+    margin-bottom: 8px;
+}
+.small-text {
+    font-size: 0.8em;
+}
+.secondary-container {
+    background: #0c1026;
+    border-radius: var(--border-radius);
+    padding: 15px 20px;
+    margin: 10px 0;
 }
 
 .trait.long input.first {
@@ -102,6 +125,7 @@ a[href] {
 
 .property-editor {
     color: var(--accent-color);
+    margin-top: 25px;
 }
 
 .trait {
@@ -109,11 +133,18 @@ a[href] {
     margin-bottom: 10px;
 }
 
-#output {
+#output-one, #output-two {
     font-family: monospace;
-    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: auto;
     overflow-wrap: break-word;
     padding: 0px 20px;
+    height: calc(50% - 30px);
+}
+
+#output-two {
+    border-top: 1px solid var(--accent-color);
+    padding-top: 20px;
 }
 
 #export-buttons {
@@ -122,12 +153,29 @@ a[href] {
     padding: 0px 20px;
     display: flex;
     align-items: center;
-    overflow-x: scroll;
+    overflow-x: auto;
     overflow-y: hidden;
 }
 #export-buttons button {
     background: #072669;
     margin-left: 10px;
+}
+.target-tavern #export-to-tavern,
+.target-gradio #export-to-gradio {
+    background: var(--accent-color);
+    color: #072669;
+}
+
+body.target-tavern .property-editor:not(.prop-tavern):not(.prop-any),
+body.target-gradio .property-editor:not(.prop-gradio):not(.prop-any) {
+    display: none;
+}
+
+body:not(.wpp-mode) #output-one {
+    height: 100%;
+}
+body:not(.wpp-mode) #output-two {
+    display: none;
 }
 
 .unimplemented {

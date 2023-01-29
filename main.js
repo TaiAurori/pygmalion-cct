@@ -1,17 +1,28 @@
 const maxTokens = 1024
+var currentTarget = "tavern"
 
 function grab(id) {
     return document.getElementById("character-" + id).value
 }
 
 function pageLoaded() {
+    setExportTarget("tavern")
     addTraitItem()
     addChatItem()
     updateOutput()
     document.getElementById("max-tokens").innerText = maxTokens
 }
 
-function makeIntoWpp() {
+function setExportTarget(target) {
+    disableGlobal("target-" + currentTarget)
+    enableGlobal("target-" + target)
+    currentTarget = target
+    updateOutput()
+}
+
+function grabDescription() {
+    if (!globalActive('wpp-mode')) return grab('description')
+    
     let name = grab("name")
     
     let traits = []
@@ -49,11 +60,17 @@ function makeIntoWpp() {
 }
 
 function updateOutput() {
-    let out = makeIntoWpp()
+    if (!globalActive("wpp-mode")) {
+        let ogetCurrentJson
+    }
+    let isWpp = globalActive("wpp-mode")
+    var outJson = JSON.stringify(getCurrentJson(), null, 2)
+    var outDesc = grabDescription()
+    var tokenAmount = encode(JSON.stringify(getCurrentJson())).length
 
-    document.getElementById("output").innerText = out
+    document.getElementById("output-one").innerText = outJson
+    document.getElementById("output-two").innerText = outDesc
 
-    let tokenAmount = encode(out).length
     document.getElementById("used-tokens").innerText = tokenAmount
 
     let counterElem = document.getElementById("token-counter")
@@ -64,6 +81,25 @@ function updateOutput() {
     } else {
         counterElem.className = ""
     }
+}
+
+function toggleGlobal(name) {
+    document.body.classList.toggle(name)
+    updateOutput()
+}
+
+function enableGlobal(name) {
+    document.body.classList.add(name)
+    updateOutput()
+}
+
+function disableGlobal(name) {
+    document.body.classList.remove(name)
+    updateOutput()
+}
+
+function globalActive(name) {
+    return Array.from(document.body.classList).includes(name)
 }
 
 function addTraitItem(key, long = false) {
@@ -99,9 +135,9 @@ function addChatItem(long = false) {
             onclick="this.parentElement.remove()"
         >X</button>
         ${long ?
-            '<textarea placeholder="Person: Hello!"></textarea>'
+            '<textarea placeholder="Person: Hello!" oninput="updateOutput()"></textarea>'
             :
-            '<input placeholder="Person: Hello!">'
+            '<input placeholder="Person: Hello!" oninput="updateOutput()">'
         }
     `
     msgs.appendChild(msg)
@@ -119,42 +155,46 @@ function downloadString(str, filename) {
     window.URL.revokeObjectURL(link)
 }
 
-
-function exportTavern() {
-    let name = grab("name")
-    let result = JSON.stringify({
-        name: name,
-        description: makeIntoWpp(),
-        avatar: "",
-        chat: "",
-        last_mes: [],
-        mes_example: ""
-    })
-    downloadString(result, `${name}.json`)
+function getCurrentJson() {
+    if (currentTarget == "tavern") return exportTavern()
+    if (currentTarget == "gradio") return exportGradio()
+    return {"error": "Invalid target"}
 }
 
-function exportOogabooga() {
+function exportTavern() {
+    let dialogue = grab("chats").split("\n")
     
+    let name = grab("name")
+    let scenario = grab("scenario")
+    let result = {
+        name: name,
+        description: grabDescription(),
+        avatar: "none",
+        // chat: "",
+        last_mes: [],
+        mes_example: !globalActive("simple") ? dialogue.join("\n") : "",
+        scenario: scenario
+    }
+    return result
 }
 
 function exportGradio() {
     let name = grab("name")
     let greeting = grab("greeting")
     let scenario = grab("scenario")
-    let dialogue = []
-
-    Array.from(document.getElementById("character-chats").children).forEach(child => {
-        dialogue.push(
-            child.children[1].value
-        )
-    })
+    let dialogue = grab("chats").split("\n")
     
-    let result = JSON.stringify({
+    let result = {
         char_name: name,
-        char_persona: makeIntoWpp(),
+        char_persona: grabDescription(),
         char_greeting: greeting,
         world_scenario: scenario,
-        example_dialogue: dialogue.join("\n")
-    })
-    downloadString(result, `${name}.json`)
+        example_dialogue: !globalActive("simple") ? dialogue.join("\n") : ""
+    }
+    return result
+}
+
+function downloadCharacter() {
+    let name = grab("name")
+    downloadString(JSON.stringify(getCurrentJson()), name + ".json")
 }
