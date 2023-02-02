@@ -30,7 +30,10 @@ function getJsonForTarget(target, info) {
   let result = {};
   CHARACTER_PROPS.forEach(prop => {
     if (prop.keys[target] && info[prop.name]) {
-      result[prop.keys[target]] = (info[prop.name].value || "") + (info[prop.name].wpp || "");
+      result[prop.keys[target]] = (
+        (info[prop.name].value || "") + "\n" +
+        (info[prop.name].wpp || "")
+      ).trim();
     }
   });
   return result;
@@ -126,14 +129,17 @@ function App() {
         }} imported={imported} />
         <Key each={Object.values(TARGETS)} by={entry => entry.toString()}>
           {entry =>
-            <button onclick={() => {
-              downloadString(
-                JSON.stringify(
-                  getJsonForTarget(entry().toString(), info)
-                ), 
-                `${info["Name"].value || "character"}.json`
-              );
-            }}>{entry().toString()}</button>
+            <button 
+              onclick={() => {
+                downloadString(
+                  JSON.stringify(
+                    getJsonForTarget(entry().toString(), info)
+                  ), 
+                  `${info["Name"].value || "character"}.json`
+                );
+              }}
+              class={ `${containerStyles["display-block"]} ${containerStyles["top-margin"]}` }
+            >Download for {entry().toString()}</button>
           }
         </Key>
       </div>

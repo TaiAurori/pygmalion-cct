@@ -77,6 +77,10 @@
   font-size: 0.8em;
 }
 
+.display-block {
+  display: block;
+}
+
 .format-buttons {
   color: var(--accent-color);
   height: 60px;

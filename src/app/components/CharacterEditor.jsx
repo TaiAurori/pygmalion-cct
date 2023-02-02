@@ -30,6 +30,9 @@ function PropertyEditor(props) {
       <span class={ itemStyles["property-label"] }>
         {props.prop.name}
       </span>
+      <span>
+        {props.prop.description}
+      </span>
       {
         props.prop.wppPolicy != WPP_POLICY.REQUIRE &&
         (props.prop.form == LENGTH.LONG ?

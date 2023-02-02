@@ -73,8 +73,8 @@ export const CHARACTER_PROPS = [
     wppPolicy: WPP_POLICY.NONE,
     usesTokens: true,
     description: <>
-      See <a href={"https://rentry.org/pygtips#character-creation-tips"}>this document</a> 
-      for an explanation of Example Conversations and other character creation tips.
+      See <a href={"https://rentry.org/pygtips#character-creation-tips"}>this document</a>
+      &nbsp;for an explanation of Example Conversations and other character creation tips.
     </>,
     hint: "What is some other information about this character?",
     keys: {
