@@ -1,0 +1,25 @@
+input[type="text"], textarea, button {
+  box-sizing: border-box;
+  padding: 6px 12px;
+  border-radius: var(--border-radius);
+  border: none;
+  background: transparent;
+  color: inherit;
+  font-family: inherit;
+  font-size: inherit;
+}
+
+input[type="text"], textarea {
+  width: 100%;
+  border: 1px solid var(--accent-color-reduced);
+}
+
+textarea {
+  resize: none;
+  height: 150px;
+}
+
+button {
+  background: #041740;
+  text-align: center;
+}

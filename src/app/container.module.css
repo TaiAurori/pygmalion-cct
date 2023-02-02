@@ -1,0 +1,98 @@
+.main-container {
+  display: flex;
+}
+
+.left-panel {
+  box-sizing: border-box;
+  height: 100vh;
+  flex: 0 0 560px;
+  padding: 30px 20px;
+  float: left;
+  background: var(--background-secondary);
+  overflow-y: auto;
+}
+
+.right-panel {
+  box-sizing: border-box;
+  height: 100vh;
+  width: 100%;
+  float: right;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.output-one, .output-two {
+  font-family: monospace;
+  overflow-x: hidden;
+  overflow-y: auto;
+  overflow-wrap: break-word;
+  white-space: pre-wrap;
+  padding: 0px 20px;
+  flex: 1;
+}
+
+.output-two {
+  border-top: 1px solid var(--accent-color-reduced);
+}
+
+.monospace {
+  font-family: monospace;
+}
+
+.section {
+  border-radius: var(--border-radius);
+  margin: 10px 0px;
+  padding: 10px 10px;
+  background: var(--background-tertiary);
+  overflow: none;
+}
+
+.property-editor {
+  color: var(--accent-color);
+  margin-top: 25px;
+}
+
+.flexbox {
+  display: flex;
+}
+
+.top-margin {
+  margin-top: 8px;
+}
+
+.bottom-margin {
+  margin-bottom: 8px;
+}
+
+.bottom-margin-large {
+  margin-bottom: 24px;
+}
+
+.left-margin {
+  margin-left: 8px;
+}
+
+.small-text {
+  font-size: 0.8em;
+}
+
+.format-buttons {
+  color: var(--accent-color);
+  height: 60px;
+  padding: 0px 20px;
+  display: flex;
+  align-items: center;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+.format-buttons button {
+  background: #072669;
+  margin-left: 10px;
+}
+
+button.active {
+  background: var(--accent-color-reduced);
+  color: black;
+}

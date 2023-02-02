@@ -1,0 +1,29 @@
+@font-face {
+  font-family: Montserrat;
+  src: url(res/font/MontserratRegular.ttf);
+}
+@font-face {
+  font-family: Montserrat;
+  src: url(res/font/MontserratSemibold.ttf);
+  font-weight: 600;
+}
+
+:root {
+  --background-primary: #051841;
+  --background-secondary: #030b1b;
+  --background-tertiary: #0d0f1c;
+  --accent-color: #01c1fd;
+  --accent-color-reduced: #01c1fdA0;
+  --border-radius: 12px;
+}
+
+body {
+  background: var(--background-primary);
+  margin: 0;
+  
+  font-family: Montserrat;
+  font-size: 1.1em;
+  color: white;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}

@@ -1,4 +1,7 @@
 // ~~stolen~~ politely borrowed from https://github.com/latitudegames/GPT-3-Encoder
+import bpe_file from './data/bpe.js'
+import encoder from './data/vocab.js'
+
 const range = (x, y) => {
   const res = Array.from(Array(y).keys()).slice(x)
   return res
@@ -165,3 +168,5 @@ function decode(tokens) {
   text = decodeStr(text.split('').map(x => byte_decoder[x]))
   return text
 }
+
+export { encode, decode };

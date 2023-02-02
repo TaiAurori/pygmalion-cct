@@ -1,2 +1,2 @@
-# Pygmalion Character Creator Toolkit
-Beta draft. Things will be missing, feel free to make pull requests or issues.
+# Pygmalion Character Creation Toolkit
+Beta draft. PRs accepted.

@@ -1,125 +1,15 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <link rel="stylesheet" href="style.css">
-        <title>Pygmalion Character Creation Toolkit</title>
-        </link>
-        <script src="bpe.js"></script>
-        <script src="vocab.js"></script>
-        <script src="tokenizer.js"></script>
-        <script src="main.js"></script>
-    </head>
-    <body onload="pageLoaded()" class="simple wpp-mode">
-        <div id="left">
-            Welcome to the Pygmalion Character Creation Toolkit.
-            <br><br>
-            This page will allow you to write up a character and
-            export it for every supported platform in one go!
-            <div class="top-margin bottom-margin small-text">
-                <button 
-                    id="toggle-wpp" 
-                    onclick="
-                        toggleGlobal('wpp-mode'); 
-                        this.innerText = (globalActive('wpp-mode') ? 'Disable' : 'Enable') + ' W++'
-                    "
-                >Disable W++</button>
-                <button 
-                    id="toggle-advanced" 
-                    onclick="
-                        toggleGlobal('simple'); 
-                        this.innerText = (!globalActive('simple') ? 'Disable' : 'Enable') + ' advanced'
-                    "
-                >Enable advanced</button>
-            </div>
-            <div class="property-editor prop-any" id="name-editor">
-                <span class="label">Name</span>
-                <input 
-                    id="character-name" 
-                    placeholder="What name does your character go by?"
-                    oninput = "updateOutput()"
-                >
-            </div>
-            <div class="property-editor prop-gradio" id="greeting-editor">
-                <span class="label">Greeting</span>
-                <input 
-                    id="character-greeting" 
-                    placeholder="What should your character say first?"
-                    oninput = "updateOutput()"
-                >
-            </div>
-            <div class="property-editor prop-any" id="scenario-editor">
-                <span class="label">Scenario</span>
-                <input 
-                    id="character-scenario" 
-                    placeholder="What place are we in? What will happen?"
-                    oninput = "updateOutput()"
-                >
-            </div>
-            <div class="property-editor prop-any" id="description-editor">
-                <span class="label">Description</span>
-                <textarea 
-                    id="character-description" 
-                    placeholder="What is some miscellaneous info about this character? Short sentences split by newline work best."
-                    oninput = "updateOutput()"
-                ></textarea>
-            </div>
-            <div class="property-editor prop-any" id="chats-editor">
-                <span class="label">Example Conversations</span>
-                <div style="margin-bottom: 8px;">
-                    See 
-                    <a href="https://rentry.org/pygtips#character-creation-tips">
-                        this document
-                    </a> 
-                    for an explanation of Example Conversations and other character creation tips.
-                </div>
-                <textarea 
-                    id="character-chats" 
-                    placeholder="You: Hello.&#10;Person: Hey!"
-                    oninput = "updateOutput()"
-                ></textarea>
-            </div>
-            <div class="property-editor prop-any" id="trait-editor">
-                <span class="label">Character traits: (e.g appearance, preferences)</span>
-                <div style="margin-bottom: 8px;">Separate the values by commas (i.e Bold, Adventurous, Limber.)</div>
-                <div id="character-traits">
-                    <!-- input element's in JS -->
-                </div>
-                <button onclick="addTraitItem()">Add short item</button>
-                <button onclick="addTraitItem('', true)">Add long item</button>
-                <div class="secondary-container">
-                    <div class="bottom-margin">Common traits:</div>
-                    <div style="font-size: 0.75em;">
-                        <button onclick="addTraitItem('Species')">Species</button>
-                        <button onclick="addTraitItem('Age')">Age</button>
-                        <button onclick="addTraitItem('Height')">Height</button>
-                        <button onclick="addTraitItem('Features')">Features</button>
-                        <button onclick="addTraitItem('Likes')">Likes</button>
-                        <button onclick="addTraitItem('Dislikes')">Dislikes</button>
-                    </div>
-                </div>
-            </div>
-            <button class="top-margin" onclick="downloadCharacter()">Download</button>
-        </div>
-        <div id="right">
-            <div id="beta-badge">BETA</div>
-            <div id="token-counter">
-                <span id="used-tokens">?</span>
-                /
-                <span id="max-tokens">?</span> tokens
-            </div>
-            <div id="export-buttons">
-                <span>Export to... </span>
-                <button id="export-to-tavern" onclick="setExportTarget('tavern')">TavernAI</button>
-                <button id="export-to-oogabooga" class="unimplemented">Oogabooga</button>
-                <button id="export-to-gradio" onclick="setExportTarget('gradio')">Gradio</button>
-                <!-- <button>All</button> -->
-            </div>
-            <div id="output-one">
-                
-            </div>
-            <div id="output-two">
-                
-            </div>
-        </div>
-    </body>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+    <title>Pygmalion Character Creation Toolkit</title>
+  </head>
+  <body>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="root"></div>
+
+    <script src="/src/index.jsx" type="module"></script>
+  </body>
 </html>
