@@ -33,7 +33,7 @@ function WppAssembler(props) {
   }
   
   function delEntry(index) {
-    setTable(table => table.slice(0, index - 1).concat(table.slice(index)));
+    setTable(table => table.slice(0, index).concat(table.slice(index + 1)));
   }
   
   function setEntryName(index, content) {
